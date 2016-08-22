@@ -1,2 +1,2 @@
-# GoToTags-NET-SDK
+# GoToTags .NET SDK
 GoToTags NFC, Barcode and IO SDK
