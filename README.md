@@ -19,4 +19,4 @@ To request a trial license [contact us](https://gototags.com/contact/) and provi
 Requested enhancements and potential bugs should be submited as [GitHub issues](https://github.com/GoToTags/GoToTags-NET/issues) in this project.
 
 ## Technical Support
-Technical support is provided to customers with an active license.Please [contact us](https://gototags.com/contact/) and provide your license id.
+Technical support is provided to customers with an active license. Please [contact us](https://gototags.com/contact/) and provide your license id along with your technical questions.
