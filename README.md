@@ -6,7 +6,8 @@ https://gototags.com/products/net-sdk/
 Features, technical documentation, system requirements and more available at the [GoToTags Docs](http://docs./gototags.com) site.
 
 ## Example Projects
-Example projects and source code using the SDK are within this GitHub repository. A license is required to run the examples; the code in this repositry will not properly run without a license. 
+Example projects and source code using the SDK are within this GitHub repository. A license is required to run the examples; the code in this repositry will not properly run without a license.
+
 Compiled, and runable versions of the example projects are available for download.
 
 ### License
