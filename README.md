@@ -1,15 +1,19 @@
 # GoToTags .NET SDK - Examples
-Microsoft Windows .NET NFC, Barcode and I/O SDK  
+Code Examples for the GoToTags Microsoft Windows .NET NFC, Barcode and I/O SDK  
 https://gototags.com/products/net-sdk/
 
 ## Features & Technical Documentation
-* Features, technical documentation and more available at the [GoToTags Docs](http://docs./gototags.com) site
-* Example projects using the SDK are within this GitHub repository
+Features, technical documentation, system requirements and more available at the [GoToTags Docs](http://docs./gototags.com) site.
 
-## Licensing, Pricing & Purchasing
-The SDK requires an active license to operate. For more information:
+## Example Projects
+Example projects using the SDK are within this GitHub repository. A license is required to run the examples; the code in this repositry will not properly run without a license. 
+
+### License
+The SDK requires an active license to operate. Several license options are available. For more information:
 * [License and Pricing](https://gototags.com/products/net-sdk/)
 * [GoToTags Store](http://store.gototags.com/)
+
+To request a trial license [contact us](https://gototags.com/contact/) and provide your name, email, company and application use case.
 
 ## Enhancements & Bugs
 Requested enhancements and potential bugs should be submited as [GitHub issues](https://github.com/GoToTags/GoToTags-NET/issues) in this project.
