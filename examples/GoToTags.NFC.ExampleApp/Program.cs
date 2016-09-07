@@ -1,12 +1,8 @@
-﻿using GoToTags.Nfc;
+﻿using GoToTags.Common.Licensing;
+using GoToTags.Nfc;
 using GoToTags.Nfc.Devices;
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GoToTags.NFC.ExampleApp
 {
@@ -19,8 +15,8 @@ namespace GoToTags.NFC.ExampleApp
                 // listen for user trying to cancel app
                 Console.CancelKeyPress += Console_CancelKeyPress;
 
-                // init the NfcManager; must call once at start of app
-                NfcManager.Instance.Init();
+                // set your license code here
+                LicenseManager.Instance.Unlock("");
 
                 // refresh the devices
                 DeviceManager.Instance.RefreshDevices();
@@ -38,10 +34,6 @@ namespace GoToTags.NFC.ExampleApp
                 Console.WriteLine(ex.ToString());
                 Console.WriteLine();
             }
-            finally
-            {
-                Dispose();
-            }
 
             Console.WriteLine();
             Console.WriteLine("DONE: Press 'Enter' to quit.");
@@ -53,15 +45,7 @@ namespace GoToTags.NFC.ExampleApp
             Console.WriteLine("CANCELLING");
             Console.WriteLine();
 
-            Dispose();
-
             Environment.Exit(-1);
-        }
-
-        private static void Dispose()
-        {
-            // cleanly shutdown the NfcManager
-            NfcManager.Instance.Dispose();
         }
     }
 }
