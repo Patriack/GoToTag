@@ -1,7 +1,9 @@
-﻿using GoToTags.Common.Licensing;
+﻿using GoToTags.Common.Json;
+using GoToTags.Common.Licensing;
 using GoToTags.Nfc;
 using GoToTags.Nfc.Devices;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GoToTags.Nfc.ExampleConsole
@@ -19,12 +21,28 @@ namespace GoToTags.Nfc.ExampleConsole
                 LicenseManager.Instance.Unlock("");
 
                 // get the current devices
-                var devices = DeviceManager.Instance.GetDevices();
+                IEnumerable<Device> devices = DeviceManager.Instance.GetDevices();
 
                 // show the devices as json
                 Console.WriteLine("DEVICES");
-                devices.ToList().ForEach(device => Console.WriteLine(device.ToJson(true)));
+                Console.WriteLine(JsonHelper.ToJson(devices, true));
                 Console.WriteLine();
+
+                // get first device
+                // can use LINQ to get device(s) based on device properties and type; ex: devices.Where(d => d.DeviceType == DeviceType.Acr122).All();
+                Device device = devices.FirstOrDefault();
+
+                if (device != null)
+                {
+                    Console.WriteLine($"USING DEVICE: {device.Name}");
+                    Console.WriteLine();
+
+                    // is the device currenlty connected to any tags?
+                    TagInformation[] tagInformations = device.GetTags();
+                    Console.WriteLine(JsonHelper.ToJson(tagInformations, true));
+                    Console.WriteLine();
+
+                }
             }
             catch (Exception ex)
             {
