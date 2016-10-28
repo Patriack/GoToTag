@@ -4,7 +4,7 @@ using GoToTags.Nfc.Devices;
 using System;
 using System.Linq;
 
-namespace GoToTags.NFC.ExampleApp
+namespace GoToTags.Nfc.ExampleConsole
 {
     class Program
     {
@@ -18,11 +18,8 @@ namespace GoToTags.NFC.ExampleApp
                 // set your license code here
                 LicenseManager.Instance.Unlock("");
 
-                // refresh the devices
-                DeviceManager.Instance.RefreshDevices();
-
                 // get the current devices
-                var devices = DeviceManager.Instance.Devices;
+                var devices = DeviceManager.Instance.GetDevices();
 
                 // show the devices as json
                 Console.WriteLine("DEVICES");

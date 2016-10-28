@@ -7,8 +7,8 @@
     <ProjectGuid>{430365E0-16D6-44AD-BC26-057E05C87FB9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoToTags.NFC.ExampleApp</RootNamespace>
-    <AssemblyName>GoToTags.NFC.ExampleApp</AssemblyName>
+    <RootNamespace>GoToTags.Nfc.ExampleConsole</RootNamespace>
+    <AssemblyName>GoToTags.Nfc.ExampleConsole</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
