@@ -31,16 +31,14 @@ namespace GoToTags.Nfc.ExampleConsole
                 // get infomation about the license
                 License license = LicenseManager.Instance.License;
                 Console.WriteLine("LICENSE");
-                Console.WriteLine(license.ToJson(true));
-                Console.WriteLine();
+                Console.WriteLine(license.ToJson(true) + Environment.NewLine);
 
                 // get the current devices
                 IEnumerable<Device> devices = DeviceManager.Instance.GetDevices();
 
                 // show the devices as json
                 Console.WriteLine("DEVICES");
-                Console.WriteLine(JsonHelper.ToJson(devices, true));
-                Console.WriteLine();
+                Console.WriteLine(JsonHelper.ToJson(devices, true) + Environment.NewLine);
 
                 // get first device
                     
@@ -80,12 +78,10 @@ namespace GoToTags.Nfc.ExampleConsole
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                Console.WriteLine();
+                Console.WriteLine(Environment.NewLine + ex.ToString() + Environment.NewLine);
             }
 
-            Console.WriteLine();
-            Console.WriteLine("DONE: Press 'Enter' to quit.");
+            Console.WriteLine("DONE: Press 'Enter' to quit." + Environment.NewLine);
             Console.ReadLine();
         }
 
@@ -97,8 +93,7 @@ namespace GoToTags.Nfc.ExampleConsole
         private static void HandleNfcTagFound(Device device, TagInformation tagInfo)
         {
             Console.WriteLine($"TAG FOUND; DEVICE: {device.Name}");
-            Console.WriteLine(JsonHelper.ToJson(tagInfo, true));
-            Console.WriteLine();
+            Console.WriteLine(JsonHelper.ToJson(tagInfo, true) + Environment.NewLine);
 
             // read the nfc tag
             ReadNdef(device, tagInfo);
@@ -112,15 +107,13 @@ namespace GoToTags.Nfc.ExampleConsole
 
         private static void ReadNdef(Device device, TagInformation tagInfo)
         {
-            Console.WriteLine("READING NDEF");
-            Console.WriteLine();
+            Console.WriteLine("READING NDEF" + Environment.NewLine);
 
             // connect via NDEF
             using (var ndef = NdefTechnology.Connect(device, tagInfo))
             {
                 Console.WriteLine("NDEF TECHNOLOGY");
-                Console.WriteLine(ndef.ToJson(true));
-                Console.WriteLine();
+                Console.WriteLine(ndef.ToJson(true) + Environment.NewLine);
 
                 // get properties from NDEF
                 bool canFormat = ndef.CanFormat;
@@ -129,8 +122,7 @@ namespace GoToTags.Nfc.ExampleConsole
                 var nfcTag = ndef.Tag;
 
                 Console.WriteLine("TAG");
-                Console.WriteLine(ndef.Tag.ToJson(true));
-                Console.WriteLine();
+                Console.WriteLine(ndef.Tag.ToJson(true) + Environment.NewLine);        
 
                 // get properties from nfc tag
 
@@ -145,15 +137,13 @@ namespace GoToTags.Nfc.ExampleConsole
                 NdefMessage ndefMessage = ndef.GetNdefMessage();
 
                 Console.WriteLine("NDEF MESSAGE");
-                Console.WriteLine(ndefMessage.ToJson(true));
-                Console.WriteLine();
+                Console.WriteLine(ndefMessage.ToJson(true) + Environment.NewLine);
             }
         }
 
         private static void WriteNdef(Device device, TagInformation tagInfo)
         {
-            Console.WriteLine("WRITING NDEF");
-            Console.WriteLine();
+            Console.WriteLine("WRITING NDEF" + Environment.NewLine);
 
             // connect via ndef
             using (var ndef = NdefTechnology.Connect(device, tagInfo))
@@ -185,8 +175,7 @@ namespace GoToTags.Nfc.ExampleConsole
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs args)
         {
-            Console.WriteLine("CANCELLING");
-            Console.WriteLine();
+            Console.WriteLine("CANCELLING" + Environment.NewLine);
 
             Environment.Exit(-1);
         }
