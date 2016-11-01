@@ -1,7 +1,6 @@
 ﻿using GoToTags.Common;
 using GoToTags.Common.Json;
 using GoToTags.Common.Licensing;
-using GoToTags.Nfc;
 using GoToTags.Nfc.Devices;
 using GoToTags.Nfc.Ndef;
 using System;
@@ -22,11 +21,11 @@ namespace GoToTags.Nfc.ExampleConsole
 
                 // set your license code here
                 // keep your license code safe!
-                LicenseManager.Instance.Unlock("XXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                LicenseManager.Instance.Unlock("XXXXXXXXXX");
 
                 // what version are we using?                
                 Console.WriteLine(AssemblyHelper.GetFullName(typeof(NfcHelper).Assembly));
-                Console.WriteLine();
+                Console.WriteLine($"RUN AT {DateTime.Now.ToString()}" + Environment.NewLine);
 
                 // get infomation about the license
                 License license = LicenseManager.Instance.License;
@@ -41,13 +40,29 @@ namespace GoToTags.Nfc.ExampleConsole
                 Console.WriteLine(JsonHelper.ToJson(devices, true) + Environment.NewLine);
 
                 // get first device
-                    
-                // can use LINQ to get device(s) based on device properties and type; ex: devices.Where(d => d.DeviceType == DeviceType.Acr122).FirstOrDefault as ACR122U();
+
+                // can use LINQ to get device(s) based on device properties and type; ex: devices.Where(d => d.Manufacturer == Manufacturer.Acs).FirstOrDefault()
                 Device device = devices.FirstOrDefault();
+
+                // can also cast a Device to a subclass to get access to device specific functions and properties
+                if (device.DeviceType == DeviceType.Acr122)
+                {
+                    Console.WriteLine("DEVICE IS ACR122" + Environment.NewLine);
+
+                    ACR122 acr122 = device as ACR122;
+                    ACR122.PiccOperatingParameters piccOperatingParameter = acr122.PiccOperatingParameter;
+                }
+                else if (device.DeviceType == DeviceType.Acr1252)
+                {
+                    Console.WriteLine("DEVICE IS ACR1252" + Environment.NewLine);
+
+                    ACR1252 acr1252 = device as ACR1252;
+                    ACR1252.LedBuzzerBehaviors ledBuzzerBehavior = acr1252.LedBuzzerBehavior;
+                }
 
                 if (device != null)
                 {
-                    Console.WriteLine($"DEVICE: {device.Name}");
+                    Console.WriteLine($"USING DEVICE: {device.Name}");
                     Console.WriteLine();
 
                     // set device specific properties like the tag buzzer
@@ -58,13 +73,24 @@ namespace GoToTags.Nfc.ExampleConsole
                     TagInformation[] tagInfos = device.GetTags();
 
                     // multiple NFC tags can be in the RF field of the device at any one time
-                    // however PCSC based devices typically force there to onle be one
-                    foreach (TagInformation tagInfo in tagInfos)
+                    // however PCSC based devices typically force there to only be one
+                    if (tagInfos.Length > 0)
                     {
-                        HandleNfcTagFound(device, tagInfo);
+                        Console.WriteLine("TAGS IN RF FIELD" + Environment.NewLine);
+
+                        foreach (TagInformation tagInfo in tagInfos)
+                        {
+                            NfcTagFound(device, tagInfo);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("NO TAGS IN RF FIELD" + Environment.NewLine);
                     }
 
                     // start listeneing for tag that show up in the device's RF field
+                    Console.WriteLine("LISTENING FOR TAGS" + Environment.NewLine);
+
                     device.TagFound += Device_TagFound;
                     device.StartListenTags();
 
@@ -87,10 +113,10 @@ namespace GoToTags.Nfc.ExampleConsole
 
         private static void Device_TagFound(Device device, TagInformation tagInfo)
         {
-            HandleNfcTagFound(device, tagInfo);
+            NfcTagFound(device, tagInfo);
         }
 
-        private static void HandleNfcTagFound(Device device, TagInformation tagInfo)
+        private static void NfcTagFound(Device device, TagInformation tagInfo)
         {
             Console.WriteLine($"TAG FOUND; DEVICE: {device.Name}");
             Console.WriteLine(JsonHelper.ToJson(tagInfo, true) + Environment.NewLine);
@@ -127,8 +153,8 @@ namespace GoToTags.Nfc.ExampleConsole
                 // get properties from nfc tag
 
                 // uid
-                byte[] uid = nfcTag.Uid;
-                var uidString = uid.ToHexString(false);
+                byte[] uid = nfcTag.Uid; // uid as byte[]
+                string uidString = uid.ToHexString(false); // uid as string
 
                 // nfc chip type
                 ChipType chipType = nfcTag.ChipType;
@@ -169,6 +195,13 @@ namespace GoToTags.Nfc.ExampleConsole
 
                     // encode the ndef message to the nfc tag
                     ndef.WriteNdefMessage(ndefMessage);
+
+                    // lock the tag
+                    if (nfcTag.CanLock && !nfcTag.Locked)
+                    {
+                        // locking is a pemament operation!
+                        // ndef.Lock();
+                    }
                 }
             }
         }
