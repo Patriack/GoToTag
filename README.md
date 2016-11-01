@@ -7,7 +7,7 @@ https://gototags.com/products/net-sdk/
 * [Technical Documentation](https://docs.gototags.com/display/NETSDK)
 * [Code Documentation](https://code.gototags.com/net-sdk/html/R_Project_GoToTags__NET_SDK_Code_Docs.htm)
 
-## Example Projects
+## Example Code
 Example projects with source code using the SDK are within this GitHub repository. 
 
 ### License
