@@ -8,7 +8,7 @@ https://gototags.com/products/net-sdk/
 * [Code Documentation](https://code.gototags.com/net-sdk/html/R_Project_GoToTags__NET_SDK_Code_Docs.htm)
 
 ## Example Code
-Example projects with source code using the SDK are within this GitHub repository. 
+Example projects with source code along with sample output using the SDK are within this GitHub repository.  
 
 ### License
 A license is required to run the examples; the **code in this repositry will not run without a license**. 
