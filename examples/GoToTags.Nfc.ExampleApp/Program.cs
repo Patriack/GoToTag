@@ -1,4 +1,5 @@
-﻿using GoToTags.Common.Json;
+﻿using GoToTags.Common;
+using GoToTags.Common.Json;
 using GoToTags.Common.Licensing;
 using GoToTags.Nfc;
 using GoToTags.Nfc.Devices;
@@ -18,7 +19,18 @@ namespace GoToTags.Nfc.ExampleConsole
                 Console.CancelKeyPress += Console_CancelKeyPress;
 
                 // set your license code here
+                // keep your license code safe!
                 LicenseManager.Instance.Unlock("");
+
+                // what version are we using?                
+                Console.WriteLine(AssemblyHelper.GetFullName(typeof(NfcHelper).Assembly));
+                Console.WriteLine();
+
+                // get infomation about the license
+                License license = LicenseManager.Instance.License;
+                Console.WriteLine("LICENSE");
+                Console.WriteLine(license.ToJson(true));
+                Console.WriteLine();
 
                 // get the current devices
                 IEnumerable<Device> devices = DeviceManager.Instance.GetDevices();
