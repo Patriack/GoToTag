@@ -13,7 +13,7 @@ Example projects with source code along with sample output using the SDK are wit
 ### License
 A license is required to run the examples; the **code in this repositry will not run without a license**. 
 
-To request a free trial license, submit a [request for trial license](https://gototags.com/products/trial/).
+To request a free trial license, submit a [request for trial license](https://gototags.com/products/net-sdk/trial/).
 
 ## Enhancements & Bugs
 Requested enhancements and potential bugs should be submited as [GitHub issues](https://github.com/GoToTags/GoToTags-NET/issues) in this repository.
