@@ -113,7 +113,16 @@ namespace GoToTags.Nfc.ExampleConsole
 
         private static void Device_TagFound(Device device, TagInformation tagInfo)
         {
-            NfcTagFound(device, tagInfo);
+            // note that this method is not called on the main thread, but from a background thread
+
+            try
+            {
+                NfcTagFound(device, tagInfo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(Environment.NewLine + ex.ToString() + Environment.NewLine);
+            }
         }
 
         private static void NfcTagFound(Device device, TagInformation tagInfo)
@@ -144,7 +153,7 @@ namespace GoToTags.Nfc.ExampleConsole
                 // get properties from NDEF
                 bool canFormat = ndef.CanFormat;
 
-                // now we can get the full nfc tag
+                // now we can get the full nfc tag with all of its properties
                 var nfcTag = ndef.Tag;
 
                 Console.WriteLine("TAG");
