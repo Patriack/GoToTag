@@ -44,24 +44,24 @@ namespace GoToTags.Nfc.ExampleConsole
                 // can use LINQ to get device(s) based on device properties and type; ex: devices.Where(d => d.Manufacturer == Manufacturer.Acs).FirstOrDefault()
                 Device device = devices.FirstOrDefault();
 
-                // can also cast a Device to a subclass to get access to device specific functions and properties
-                if (device.DeviceType == DeviceType.Acr122)
-                {
-                    Console.WriteLine("DEVICE IS ACR122" + Environment.NewLine);
-
-                    ACR122 acr122 = device as ACR122;
-                    ACR122.PiccOperatingParameters piccOperatingParameter = acr122.PiccOperatingParameter;
-                }
-                else if (device.DeviceType == DeviceType.Acr1252)
-                {
-                    Console.WriteLine("DEVICE IS ACR1252" + Environment.NewLine);
-
-                    ACR1252 acr1252 = device as ACR1252;
-                    ACR1252.LedBuzzerBehaviors ledBuzzerBehavior = acr1252.LedBuzzerBehavior;
-                }
-
                 if (device != null)
                 {
+                    // can also cast a Device to a subclass to get access to device specific functions and properties
+                    if (device.DeviceType == DeviceType.Acr122)
+                    {
+                        Console.WriteLine("DEVICE IS ACR122" + Environment.NewLine);
+
+                        ACR122 acr122 = device as ACR122;
+                        ACR122.PiccOperatingParameters piccOperatingParameter = acr122.PiccOperatingParameter;
+                    }
+                    else if (device.DeviceType == DeviceType.Acr1252)
+                    {
+                        Console.WriteLine("DEVICE IS ACR1252" + Environment.NewLine);
+
+                        ACR1252 acr1252 = device as ACR1252;
+                        ACR1252.LedBuzzerBehaviors ledBuzzerBehavior = acr1252.LedBuzzerBehavior;
+                    }
+
                     Console.WriteLine($"USING DEVICE: {device.Name}");
                     Console.WriteLine();
 
