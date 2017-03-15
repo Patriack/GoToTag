@@ -39,6 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\GoToTags-NET\lib\net461\GoToTags.Common.dll</HintPath>
     </Reference>
+    <Reference Include="GoToTags.IoT">
+      <HintPath>..\..\lib\GoToTags-NET\lib\net461\GoToTags.IoT.dll</HintPath>
+    </Reference>
     <Reference Include="GoToTags.Nfc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=71d75a9c4c098728, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\GoToTags-NET\lib\net461\GoToTags.Nfc.dll</HintPath>
