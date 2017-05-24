@@ -1,6 +1,6 @@
 ﻿using GoToTags.Common;
-using GoToTags.Common.Json;
 using GoToTags.Common.Licensing;
+using GoToTags.Common.Serialization;
 using GoToTags.Nfc.Devices;
 using GoToTags.Nfc.Ndef;
 using System;
