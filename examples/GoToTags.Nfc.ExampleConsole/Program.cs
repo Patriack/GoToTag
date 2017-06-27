@@ -31,6 +31,10 @@ namespace GoToTags.Nfc.ExampleConsole
                 License license = LicenseManager.Instance.License;
                 Console.WriteLine("LICENSE");
                 Console.WriteLine(license.ToJson(true) + Environment.NewLine);
+                
+                // stop the Windows Certificate Propagation Service
+                // https://gototags.com/nfc/windows-certificate-propagation-service/
+                NfcHelper.StopCertPropSvc();
 
                 // get the current devices
                 IEnumerable<Device> devices = DeviceManager.Instance.GetDevices();
