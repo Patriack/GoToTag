@@ -1,4 +1,5 @@
 ﻿using GoToTags.Common;
+using GoToTags.Common.Console;
 using GoToTags.Common.Licensing;
 using GoToTags.Common.Serialization;
 using GoToTags.Nfc.Devices;
@@ -24,13 +25,13 @@ namespace GoToTags.Nfc.ExampleConsole
                 LicenseManager.Instance.Unlock("XXXXXXXXXX");
 
                 // what version are we using?                
-                Console.WriteLine(AssemblyHelper.GetFullName(typeof(NfcHelper).Assembly));
-                Console.WriteLine($"RUN AT {DateTime.Now.ToString()}" + Environment.NewLine);
+                ConsoleHelper.WriteLine(AssemblyHelper.GetFullName(typeof(NfcHelper).Assembly), false, ConsoleColor.Green);
+                ConsoleHelper.WriteLine($"RUN AT {DateTime.Now.ToString()}", true);
 
                 // get infomation about the license
                 License license = LicenseManager.Instance.License;
-                Console.WriteLine("LICENSE");
-                Console.WriteLine(license.ToJson(true) + Environment.NewLine);
+                ConsoleHelper.WriteLine("LICENSE");
+                ConsoleHelper.WriteLine(license.ToJson(true), true);
                 
                 // stop the Windows Certificate Propagation Service
                 // https://gototags.com/nfc/windows-certificate-propagation-service/
@@ -40,8 +41,8 @@ namespace GoToTags.Nfc.ExampleConsole
                 IEnumerable<Device> devices = DeviceManager.Instance.GetDevices();
 
                 // show the devices as json
-                Console.WriteLine("DEVICES");
-                Console.WriteLine(JsonHelper.ToJson(devices, true) + Environment.NewLine);
+                ConsoleHelper.WriteLine("DEVICES");
+                ConsoleHelper.WriteLine(JsonHelper.ToJson(devices, true), true);
 
                 // get first device
 
@@ -66,8 +67,7 @@ namespace GoToTags.Nfc.ExampleConsole
                         ACR1252.LedBuzzerBehaviors ledBuzzerBehavior = acr1252.LedBuzzerBehavior;
                     }
 
-                    Console.WriteLine($"USING DEVICE: {device.Name}");
-                    Console.WriteLine();
+                    ConsoleHelper.WriteLine($"USING DEVICE: {device.Name}", true);
 
                     // set device specific properties like the tag buzzer
                     if (device.HasTagBuzzer)
@@ -80,7 +80,7 @@ namespace GoToTags.Nfc.ExampleConsole
                     // however PCSC based devices typically force there to only be one
                     if (tagInfos.Length > 0)
                     {
-                        Console.WriteLine("TAGS IN RF FIELD" + Environment.NewLine);
+                        ConsoleHelper.WriteLine("TAGS IN RF FIELD", true);
 
                         foreach (TagInformation tagInfo in tagInfos)
                         {
@@ -89,11 +89,11 @@ namespace GoToTags.Nfc.ExampleConsole
                     }
                     else
                     {
-                        Console.WriteLine("NO TAGS IN RF FIELD" + Environment.NewLine);
+                        ConsoleHelper.WriteLine("NO TAGS IN RF FIELD", true);
                     }
 
                     // start listeneing for tag that show up in the device's RF field
-                    Console.WriteLine("LISTENING FOR TAGS" + Environment.NewLine);
+                    ConsoleHelper.WriteLine("LISTENING FOR TAGS", true);
 
                     device.TagFound += Device_TagFound;
                     device.StartListenTags();
@@ -108,10 +108,10 @@ namespace GoToTags.Nfc.ExampleConsole
             }
             catch (Exception ex)
             {
-                Console.WriteLine(Environment.NewLine + ex.ToString() + Environment.NewLine);
+                ConsoleHelper.WriteException(ex);
             }
 
-            Console.WriteLine("DONE: Press 'Enter' to quit." + Environment.NewLine);
+            ConsoleHelper.WriteLine("DONE: Press 'Enter' to quit.", true);
             Console.ReadLine();
         }
 
@@ -125,14 +125,14 @@ namespace GoToTags.Nfc.ExampleConsole
             }
             catch (Exception ex)
             {
-                Console.WriteLine(Environment.NewLine + ex.ToString() + Environment.NewLine);
+                ConsoleHelper.WriteException(ex);
             }
         }
 
         private static void NfcTagFound(Device device, TagInformation tagInfo)
         {
-            Console.WriteLine($"TAG FOUND; DEVICE: {device.Name}");
-            Console.WriteLine(JsonHelper.ToJson(tagInfo, true) + Environment.NewLine);
+            ConsoleHelper.WriteLine($"TAG FOUND; DEVICE: {device.Name}");
+            ConsoleHelper.WriteLine(JsonHelper.ToJson(tagInfo, true), true);
 
             // read the nfc tag
             ReadNdef(device, tagInfo);
@@ -146,13 +146,13 @@ namespace GoToTags.Nfc.ExampleConsole
 
         private static void ReadNdef(Device device, TagInformation tagInfo)
         {
-            Console.WriteLine("READING NDEF" + Environment.NewLine);
+            ConsoleHelper.WriteLine("READING NDEF");
 
             // connect via NDEF
             using (var ndef = NdefTechnology.Connect(device, tagInfo))
             {
-                Console.WriteLine("NDEF TECHNOLOGY");
-                Console.WriteLine(ndef.ToJson(true) + Environment.NewLine);
+                ConsoleHelper.WriteLine("NDEF TECHNOLOGY");
+                ConsoleHelper.WriteLine(ndef.ToJson(true), true);
 
                 // get properties from NDEF
                 bool canFormat = ndef.CanFormat;
@@ -160,8 +160,8 @@ namespace GoToTags.Nfc.ExampleConsole
                 // now we can get the full nfc tag with all of its properties
                 var nfcTag = ndef.Tag;
 
-                Console.WriteLine("TAG");
-                Console.WriteLine(ndef.Tag.ToJson(true) + Environment.NewLine);        
+                ConsoleHelper.WriteLine("TAG");
+                ConsoleHelper.WriteLine(ndef.Tag.ToJson(true), true);        
 
                 // get properties from nfc tag
 
@@ -175,14 +175,14 @@ namespace GoToTags.Nfc.ExampleConsole
                 // read the ndef message
                 NdefMessage ndefMessage = ndef.GetNdefMessage();
 
-                Console.WriteLine("NDEF MESSAGE");
-                Console.WriteLine(ndefMessage.ToJson(true) + Environment.NewLine);
+                ConsoleHelper.WriteLine("NDEF MESSAGE");
+                ConsoleHelper.WriteLine(ndefMessage.ToJson(true), true);
             }
         }
 
         private static void WriteNdef(Device device, TagInformation tagInfo)
         {
-            Console.WriteLine("WRITING NDEF" + Environment.NewLine);
+            ConsoleHelper.WriteLine("WRITING NDEF", true);
 
             // connect via ndef
             using (var ndef = NdefTechnology.Connect(device, tagInfo))
@@ -221,7 +221,7 @@ namespace GoToTags.Nfc.ExampleConsole
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs args)
         {
-            Console.WriteLine("CANCELLING" + Environment.NewLine);
+            ConsoleHelper.WriteLine("CANCELLING", true);
 
             Environment.Exit(-1);
         }
