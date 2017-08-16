@@ -1,11 +1,11 @@
 # GoToTags .NET SDK - Examples
 Code Examples for the GoToTags .NET NFC, Barcode and I/O SDK
 
-https://gototags.com/products/net-sdk/
+https://gototags.com/net-sdk/
 
 ## SDK Documentation
-* [Technical Documentation](https://docs.gototags.com/display/NETSDK)
-* [Code Documentation](https://code.gototags.com/net-sdk/html/R_Project_GoToTags__NET_SDK_Code_Docs.htm)
+* [Help](https://help.gototags.com/topic/net-sdk/)
+* [Code Docs](https://code.gototags.com/net-sdk/index.html)
 
 ## Example Code
 Example projects with source code along with sample output using the SDK are within this GitHub repository.  
@@ -13,7 +13,7 @@ Example projects with source code along with sample output using the SDK are wit
 ### License
 A license is required to run the examples; the **code in this repositry will not run without a license**. 
 
-To request a free trial license, submit a [request for trial license](https://gototags.com/products/net-sdk/trial/).
+To request a free trial license, submit a [request for trial license](https://gototags.com/net-sdk/trial/).
 
 ## Enhancements & Bugs
 Requested enhancements and potential bugs should be submited as [GitHub issues](https://github.com/GoToTags/GoToTags-NET/issues) in this repository.
