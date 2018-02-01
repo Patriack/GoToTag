@@ -1,0 +1,1 @@
+The DLLs for the GoToTags .NET SDK should be put in this folder. Ther DLLs are not included in this repository for security reasons. The DLLs can be obtained from GoToTags by requesting a trial of the SDK.
